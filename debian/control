@@ -17,7 +17,7 @@ Build-Depends:
 # 		apt-ftparchive is used for including localudebs.
 	gnupg,
 #		New versions of apt need gnupg for security checks.
-	debian-archive-keyring (>= 2006.11.22),
+	tanglu-archive-keyring,
 #		To provide the archive key for security checks.
 	dctrl-tools,
 #		Various manipulations of the udeb Packages files.
@@ -158,7 +158,7 @@ Build-Depends:
 #		Used as the CD-ROM's bootloader
 	xorriso [kfreebsd-i386 kfreebsd-amd64 hurd-i386],
 #               Used by grub-pc to create the CD-ROM images
-	debian-ports-archive-keyring [sh4 sparc64],
+#	debian-ports-archive-keyring [sh4 sparc64],
 #		Used for architectures hosted on debian-ports.org
 	librsvg2-bin [any-amd64 any-i386],
 #		Used to convert splash SVG to splash PNG during build

@@ -466,6 +466,16 @@ endif
 	mkdir -p $(EXTRAUDEBSDPKGDIR)/info $(EXTRAUDEBSDPKGDIR)/updates
 	touch $(EXTRAUDEBSDPKGDIR)/status $(EXTRAUDEBSDPKGDIR)/available
 
+	# create udev config file so we get the devices needed by buxybox
+	echo "D pts" > $(TREE)/etc/udev/links.conf
+	echo "D shm" >> $(TREE)/etc/udev/links.conf
+	echo "D net" >> $(TREE)/etc/udev/links.conf
+	echo "M null          c   1 3" >> $(TREE)/etc/udev/links.conf
+	echo "M console       c   5 1" >> $(TREE)/etc/udev/links.conf
+	echo "M ppp           c 108 0" >> $(TREE)/etc/udev/links.conf
+	echo "M loop0         b   7 0" >> $(TREE)/etc/udev/links.conf
+	echo "M net/tun       c  10 200" >> $(TREE)/etc/udev/links.conf
+
 ifdef EXTRADRIVERS
 	# Unpack the udebs of additional driver disks, so mklibs runs on them too.
 	dpkg $(DPKG_UNPACK_OPTIONS) --log=/dev/null --root=$(EXTRAUDEBSDIR) --unpack \

@@ -5,6 +5,5 @@
 localechooser -
 # Also remove console-setup as it's not relevant for this type of install
 # (and the devices for which it's used).
-console-setup-udeb -
-kbd-udeb -
+console-setup -
 console-setup-pc-ekmap -
