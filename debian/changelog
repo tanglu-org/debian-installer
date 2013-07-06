@@ -1,10 +1,6 @@
 debian-installer (2013XXXXtanglu1) UNRELEASED; urgency=low
 
-  * Use 3.8.0-19-generic kernel 
   * Use tanglu-archive-keyring 
-  * Add util-linux-udeb to pkg-lists
-  * Use console-setup instead of kbd-chooser
-  * Many kernel related udeb changes
   * Use udebs from aequorea 
   * Various branding changes
   * Create /etc/udev/links.conf which isn't part of udev-udeb anymore
