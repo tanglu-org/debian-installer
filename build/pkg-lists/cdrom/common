@@ -7,7 +7,6 @@ localechooser
 hw-detect
 cdrom-detect
 cdrom-retriever
-hdparm-udeb
 load-cdrom
 cdrom-checker
 bogl-bterm-udeb
