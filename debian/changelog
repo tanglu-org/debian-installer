@@ -1,4 +1,4 @@
-debian-installer (20130415tanglu1) UNRELEASED; urgency=low
+debian-installer (2013XXXXtanglu1) UNRELEASED; urgency=low
 
   * Use 3.8.0-19-generic kernel 
   * Use tanglu-archive-keyring 
@@ -10,6 +10,44 @@ debian-installer (20130415tanglu1) UNRELEASED; urgency=low
   * Create /etc/udev/links.conf which isn't part of udev-udeb anymore
 
  -- Philip Muškovac <yofel@kubuntu.org>  Fri, 26 Apr 2013 11:01:05 +0200
+
+debian-installer (2013XXXX) UNRELEASED; urgency=low
+
+  [ Samuel Thibault ]
+  * Fix boot beep.
+  * Add hd-media target for hurd-i386.
+  * Update lowmem and minimum disk figures in x86 boot help
+    (Closes: #709436).
+
+  [ Cyril Brulebois ]
+  * wheezy is released! The next target is jessie.
+  * Update those files accordingly:
+    - build/boot/x86/xen/debian.cfg
+    - build/config/common
+    - doc/devel/internals/building.xml
+    - debian/rules
+  * Those need a deeper look:
+    - doc/i18n/languages.xml
+    - doc/i18n/languages.xsl
+  * Bump linux kernel version from 3.2.0-4 to 3.9-1.
+  * Set DEBIAN_VERSION to just '8'.
+
+  [ Philipp Kern ]
+  * s390(x): Remove the tape image flavour (no longer supported by
+    the kernel).
+
+  [ Steve McIntyre ]
+  * Fix GRUB EFI prefix in efi-image to work properly with GRUB
+    2.00. Patch stolen^Wborrowed from Colin in Ubuntu's d-i code.
+
+ -- Samuel Thibault <sthibault@debian.org>  Wed, 01 May 2013 14:18:04 +0200
+
+debian-installer (20130430) unstable; urgency=low
+
+  [ Aurelien Jarno ]
+  * Include virtio-modules in sparc and sparc64 netboot images (Closes: #704672).
+
+ -- Cyril Brulebois <kibi@debian.org>  Tue, 30 Apr 2013 23:10:12 +0200
 
 debian-installer (20130415) unstable; urgency=low
 
