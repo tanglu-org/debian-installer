@@ -7,7 +7,7 @@ debian-installer (2013XXXXtanglu1) UNRELEASED; urgency=low
 
  -- Philip Muškovac <yofel@kubuntu.org>  Sun, 02 Jul 2013 11:01:05 +0200
 
-debian-installer (2013XXXX) UNRELEASED; urgency=low
+debian-installer (20131014) unstable; urgency=low
 
   [ Samuel Thibault ]
   * Fix boot beep.
@@ -41,6 +41,9 @@ debian-installer (2013XXXX) UNRELEASED; urgency=low
     - build/pkg-lists/netboot/amd64.cfg
     - build/pkg-lists/netboot/i386.cfg
     - build/pkg-lists/netboot/powerpc.cfg
+  * Use eatmydata when apt-get installing udebs during the build, if
+    it's available.
+  * Update translation-status.
 
   [ Philipp Kern ]
   * s390(x): Remove the tape image flavour (no longer supported by
@@ -79,7 +82,10 @@ debian-installer (2013XXXX) UNRELEASED; urgency=low
     - The pxecmd module only provided pxe_unload, which was not used
       anyway, and is now implemented by GRUB 2.00 in the pxe module.
 
- -- Samuel Thibault <sthibault@debian.org>  Wed, 01 May 2013 14:18:04 +0200
+  [ Ian Campbell ]
+  * Add armmp flavour to armhf.
+
+ -- Cyril Brulebois <kibi@debian.org>  Mon, 14 Oct 2013 03:02:17 +0200
 
 debian-installer (20130430) unstable; urgency=low
 
