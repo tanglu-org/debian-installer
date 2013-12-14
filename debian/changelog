@@ -8,7 +8,14 @@ debian-installer (2013XXXXtanglu1) UNRELEASED; urgency=low
 
  -- Philip Muškovac <yofel@kubuntu.org>  Sun, 02 Jul 2013 11:01:05 +0200
 
-debian-installer (2013XXXX) UNRELEASED; urgency=low
+debian-installer (201312xx) UNRELEASED; urgency=low
+
+  [ Martin Michlmayr ]
+  * Remove Cobalt images.
+
+ -- Martin Michlmayr <tbm@cyrius.com>  Sat, 14 Dec 2013 10:13:09 +0000
+
+debian-installer (20131211) unstable; urgency=low
 
   [ Ian Campbell ]
   * Remove mx5 and vexpress flavours from armhf, they are covered by armmp.
@@ -18,8 +25,9 @@ debian-installer (2013XXXX) UNRELEASED; urgency=low
   * Out of ext{2,3,4}-modules, only keep ext4-modules since it provides
     support for all of those starting with 3.11. Use ext4 as well where
     only ext2 and ext3 were listed.
+  * Update translation-status for the release.
 
- -- Ian Campbell <ijc@hellion.org.uk>  Tue, 15 Oct 2013 21:46:33 +0100
+ -- Cyril Brulebois <kibi@debian.org>  Wed, 11 Dec 2013 21:51:10 +0100
 
 debian-installer (20131014) unstable; urgency=low
 
