@@ -1,4 +1,4 @@
-debian-installer (2013XXXXtanglu1) UNRELEASED; urgency=low
+debian-installer (201401XXtanglu1) staging; urgency=low
 
   * Use tanglu-archive-keyring 
   * Use udebs from aequorea 
