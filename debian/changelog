@@ -8,19 +8,34 @@ debian-installer (20140210tanglu1) staging; urgency=medium
 
  -- Philip Muškovac <yofel@kubuntu.org>  Sun, 02 Jul 2013 11:01:05 +0200
 
-debian-installer (201312xx) UNRELEASED; urgency=low
+debian-installer (20140210) UNRELEASED; urgency=medium
+
+  * Add SSL_CERTS variable, which can be used to build images with embedded
+    SSL certificates with c_rehash run over them so that OpenSSL can see
+    them (LP: #833994).
+
+ -- Colin Watson <cjwatson@debian.org>  Mon, 10 Feb 2014 19:41:38 +0000
+
+debian-installer (20140208) unstable; urgency=low
 
   [ Martin Michlmayr ]
   * Remove Cobalt images.
 
   [ Cyril Brulebois ]
   * Bump linux kernel version from 3.11-2 to 3.12-1.
+  * Update hppa config (for debian-ports), thanks to Helge Deller
+    for the patch (Closes: #736966).
+  * Update translation-status for the release.
 
   [ Aurelien Jarno ]
   * Add MIPS Octeon images.
   * Add MIPSEL Loongson 2E images.
 
- -- Martin Michlmayr <tbm@cyrius.com>  Sat, 14 Dec 2013 10:13:09 +0000
+  [ Steven Chamberlain ]
+  * Remove gPXE workaround on kfreebsd and hurd (fixed already in
+    GRUB 2.00 as #635877)
+
+ -- Cyril Brulebois <kibi@debian.org>  Sat, 08 Feb 2014 19:27:33 +0300
 
 debian-installer (20131211) unstable; urgency=low
 
