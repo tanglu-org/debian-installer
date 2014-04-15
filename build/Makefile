@@ -56,6 +56,7 @@
 # Add to PATH so dpkg will always work, and so local programs will be found.
 PATH := util:$(PATH):/usr/sbin:/sbin
 EATMYDATA = $(shell which eatmydata 2>/dev/null)
+GZIP = $(shell which pigz gzip | head -1)
 
 # We don't want this to be run each time we re-enter.
 ifndef DEB_HOST_ARCH
@@ -66,6 +67,15 @@ DEB_HOST_GNU_SYSTEM = $(shell dpkg-architecture -qDEB_HOST_GNU_SYSTEM)
 DEB_HOST_MULTIARCH = $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
 export DEB_HOST_ARCH DEB_HOST_ARCH_OS DEB_HOST_GNU_CPU DEB_HOST_GNU_SYSTEM DEB_HOST_MULTIARCH
 endif
+
+define drop_lang
+	@echo "Dropping languages: $(1)"
+	@set -e; \
+	for FILE in $$(find $(TREE)/var/lib/dpkg -name "*.templates"); do \
+		perl -e 'my $$status=0; my $$drop=shift; while (<>) { if (/^[A-Z]/ || /^$$/) { if (/^(Choices|Description|Indices|Default)-($$drop)/ && ! /^Choices-C:/) { $$status = 0 } else { $$status = 1 } } print if ($$status); }' $(1) < $$FILE > temp; \
+		mv temp $$FILE; \
+	done
+endef
 
 # We loop over all needed combinations of ARCH, SUBARCH, MEDIUM, FLAVOUR
 # via recursive make calls. ARCH is constant, we don't support
@@ -125,7 +135,7 @@ define recurse
 endef
 
 define mkinitramfs
-  (cd $(TREE) && find . | cpio --quiet -o -H newc) > 
+  (cd $(TREE) && find . | sort | cpio --quiet -o -H newc) > 
 endef
 
 # Limit on mfsroot size. It is determined by NKPT (in <machine/pmap.h).
@@ -287,8 +297,8 @@ release:
 	egrep '^[[:space:]]' $(BASE_DEST)/MANIFEST.udebs | \
 		sed 's/^[[:space:]]*//' | sort | uniq > $(BASE_DEST)/udeb.list
 	rm -f $(BASE_DEST)/MD5SUMS $(BASE_DEST)/SHA256SUMS
-	cd $(BASE_DEST) && md5sum `find -L . -type f` > MD5SUMS # XXX remove this
-	cd $(BASE_DEST) && sha256sum `find -L . -type f` > SHA256SUMS
+	cd $(BASE_DEST) && md5sum `find -L . -type f | sort` > MD5SUMS # XXX remove this
+	cd $(BASE_DEST) && sha256sum `find -L . -type f | sort` > SHA256SUMS
 
 # The general tree target.
 $(STAMPS)tree-unpack-$(targetstring)-stamp: $(STAMPS)get_udebs-$(targetstring)-stamp
@@ -383,9 +393,11 @@ endif
 
 ifdef SSL_CERTS
 	# Copy in any SSL certificates.
-	mkdir -p $(TREE)/usr/lib/ssl/certs
-	cp -a $(SSL_CERTS) $(TREE)/usr/lib/ssl/certs/
-	c_rehash $(TREE)/usr/lib/ssl/certs/
+	mkdir -p $(TREE)/etc/ssl/certs
+	cp -a $(SSL_CERTS) $(TREE)/etc/ssl/certs/
+	c_rehash $(TREE)/etc/ssl/certs
+	mkdir -p $(TREE)/usr/lib/ssl
+	ln -nsf ../../../etc/ssl/certs $(TREE)/usr/lib/ssl/certs
 endif
 
 ifeq ($(DEB_HOST_ARCH_OS),linux)
@@ -563,15 +575,6 @@ ifdef OMIT_DPKG
 	rm -rf $(DPKGDIR)
 endif
 
-define drop_lang
-	@echo "Dropping languages: $(1)"
-	@set -e; \
-	for FILE in $$(find $(TREE)/var/lib/dpkg -name "*.templates"); do \
-		perl -e 'my $$status=0; my $$drop=shift; while (<>) { if (/^[A-Z]/ || /^$$/) { if (/^(Choices|Description|Indices|Default)-($$drop)/ && ! /^Choices-C:/) { $$status = 0 } else { $$status = 1 } } print if ($$status); }' $(1) < $$FILE > temp; \
-		mv temp $$FILE; \
-	done
-endef
-
 ifndef KEEP_GI_LANGS
 	# It makes no sense to include languages only supported by the
 	# graphical installer in regular images. This will also ensure
@@ -609,7 +612,7 @@ endif
 	set -e; \
 	for file in `find $(TREE)/var/lib/dpkg/info -name '*.md5sums' -o \
 	    -name '*.postrm' -o -name '*.prerm' -o -name '*.preinst' -o \
-	    -name '*.list'`; do \
+	    -name '*.list' | sort`; do \
 		if echo $$file | grep -qv '\.list'; then \
 			echo "** Removing unnecessary control file $$file"; \
 		fi; \
@@ -722,18 +725,18 @@ endif
 	ext2) \
 		$(genext2fs) $(TEMP)/initrd; \
 		$(e2fsck) $(TEMP)/initrd || true; \
-		gzip -v9f $(TEMP)/initrd; \
+		$(GZIP) -v9f $(TEMP)/initrd; \
 	;; \
 	initramfs) \
 		$(mkinitramfs) $(TEMP)/initrd; \
-		gzip -v9f $(TEMP)/initrd; \
+		$(GZIP) -v9f $(TEMP)/initrd; \
 	;; \
 	jffs2) \
 		$(mkjffs2) $(TEMP_INITRD); \
 	;; \
 	ufs1) \
 		$(mkfs.ufs1) $(TEMP)/initrd; \
-		gzip -v9f $(TEMP)/initrd; \
+		$(GZIP) -v9f $(TEMP)/initrd; \
 	;; \
 	*) \
 		echo "Unsupported filesystem type"; \
@@ -845,7 +848,7 @@ $(TEMP_EXTRA): $(STAMPS)extra-$(targetstring)-stamp
 		echo "Unsupported filesystem type"; \
 		exit 1 ;; \
 	esac
-	$(if $(GZIPPED),gzip -v9f $(TEMP_EXTRA))
+	$(if $(GZIPPED),$(GZIP) -v9f $(TEMP_EXTRA))
 
 $(STAMPS)extra-$(targetstring)-stamp: $(STAMPS)get_udebs-$(targetstring)-stamp
 	@rm -f $@

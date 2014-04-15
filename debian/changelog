@@ -1,3 +1,72 @@
+debian-installer (201403XX) UNRELEASED; urgency=low
+
+  [ Cyril Brulebois ]
+  * debian/rules: Introduce build-{arch,indep} targets, depending on
+    build-stamp, and depended upon by build.
+  * debian/control: Bump Standards-Version to 3.9.5, no further changes
+    required.
+  * Remove Otavio from Uploaders, with many thanks for his past work.
+
+  [ Samuel Thibault ]
+  * Add a separate Hurd boot option for CJK support in pseudo-graphical mode, so
+    the default can use 720x400 resolution, instead of using 640x400 which is
+    not supported by some screens...
+
+  [ Martin Michlmayr ]
+  * Add support for QNAP HS-210.  Thanks to Kevin Woldt for the patch.
+
+ -- Cyril Brulebois <kibi@debian.org>  Sun, 16 Mar 2014 16:20:52 +0100
+
+debian-installer (20140316) unstable; urgency=medium
+
+  [ Colin Watson ]
+  * Add SSL_CERTS variable, which can be used to build images with embedded
+    SSL certificates with c_rehash run over them so that OpenSSL can see
+    them (LP: #833994).
+
+  [ Cyril Brulebois ]
+  * build/Makefile: Use $(GZIP) instead of gzip, and prefer pigz over
+    gzip if it's available, which can give a nice speed-up.
+  * Update boot config/screens for the default desktop change (GNOME → Xfce)
+    in tasksel 3.19 (Closes: #738602).
+  * Update copyright years in boot screens.
+  * Bump linux kernel version from 3.12-1 to 3.13-1.
+  * build/config/{amd64,i386}.cfg: Remove old "video=vesa:ywrap,mtrr" option
+    from VIDEO_MODE_GTK (See: #395040). DirectFB apparently needed those at
+    some point. Let's see whether letting the kernel do its job just works.
+  * build/Makefile: Add “| sort” after some find calls, to reduce entropy
+    and notably to make build logs more easily post-processable.
+  * build/Makefile: Move the drop_lang definition to the top of the file to
+    deal with incompatible changes in make 3.82 leading to the following
+    error: “recipe commences before first target” (Closes: #720719).
+  * build/README: Mention USE_UDEBS_FROM in the recipe at the top, and add a
+    pointer to debian/rules in its documentation (Closes: #653513).
+  * Remove iop32x flavour on armel since support has been dropped from the
+    linux package (in 3.13-1~exp1).
+  * config/kfreebsd.cfg: Put xorriso's -J flag after “--” to work around
+    grub-mkrescue's change in option handling (See: #741656).
+  * Update translation-status for the release.
+
+  [ Robert Millan ]
+  * Enable kfreebsd-10 builds.
+  * Bump kfreebsd-10 from unstable ABI to 10.0-1.
+
+  [ Samuel Thibault ]
+  * Upgrade hurd kernel to 1.4
+  * Add usb key boot support for kfreebsd & hurd images. This needs another
+    grub image, grub_embed, which has to be very small. Add x86-image script,
+    similar to efi-image script, with factorized grub-cpmodules part, to build
+    minimal grub images with iso9660 and biosdisk support, and put GRUB modules
+    on the ISO image.  grub.cfg thus now has to explicitly load modules.
+  * Also build initrd for hurd Xen target.
+  * Add base infrastructure for kfreebsd Xen images.
+
+  [ Didier Raboud ]
+  * Add a comment documenting the need to keep the video modes in sync
+    between d-i and win32-loader
+
+ -- Cyril Brulebois <kibi@debian.org>  Sun, 16 Mar 2014 13:45:22 +0100
+
 debian-installer (20140210tanglu1) staging; urgency=medium
 
   * Use tanglu-archive-keyring 
@@ -7,14 +76,6 @@ debian-installer (20140210tanglu1) staging; urgency=medium
   * Don't run mklibs during build
 
  -- Philip Muškovac <yofel@kubuntu.org>  Sun, 02 Jul 2013 11:01:05 +0200
-
-debian-installer (20140210) UNRELEASED; urgency=medium
-
-  * Add SSL_CERTS variable, which can be used to build images with embedded
-    SSL certificates with c_rehash run over them so that OpenSSL can see
-    them (LP: #833994).
-
- -- Colin Watson <cjwatson@debian.org>  Mon, 10 Feb 2014 19:41:38 +0000
 
 debian-installer (20140208) unstable; urgency=low
 
