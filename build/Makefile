@@ -323,18 +323,20 @@ ifdef TRANSSTATUS
 	# Do this first to make possible warnings more visible.
 	@echo; \
 	if [ -f "$(TRANSSTATUS)" ]; then \
-		olddate=$$(grep "^# Generated on:" $(TRANSSTATUS) | sed "s/.*: //"); \
-		if [ "$$olddate" ]; then \
-			if [ $$(( $$(date -u "+%s") - \
-			          $$(date -d "$$olddate" "+%s") \
-			       )) -gt 1209600 ]; then \
-				echo "WARNING: The data in '$(TRANSSTATUS)' is older than 2 weeks."; \
-				echo "         Should it maybe be updated?"; \
+		if [ "$(USE_PROPOSED_UPDATES)" != 1 ]; then \
+			olddate=$$(grep "^# Generated on:" $(TRANSSTATUS) | sed "s/.*: //"); \
+			if [ "$$olddate" ]; then \
+				if [ $$(( $$(date -u "+%s") - \
+				          $$(date -d "$$olddate" "+%s") \
+				       )) -gt 1209600 ]; then \
+					echo "WARNING: The data in '$(TRANSSTATUS)' is older than 2 weeks."; \
+					echo "         Should it maybe be updated?"; \
+					sleep 15; \
+				fi; \
+			else \
+				echo "WARNING: no timestamp found in $(TRANSSTATUS)."; \
 				sleep 15; \
 			fi; \
-		else \
-			echo "WARNING: no timestamp found in $(TRANSSTATUS)."; \
-			sleep 15; \
 		fi; \
 		mkdir -p $(TREE)/usr/share/localechooser; \
 		cp $(TRANSSTATUS) $(TREE)/usr/share/localechooser/translation-status; \
@@ -570,6 +572,14 @@ endif
 	echo "Description: debian installation image" >> $(DPKGDIR)/status
 	echo >> $(DPKGDIR)/status
 
+ifeq ($(DEB_HOST_ARCH_OS),hurd)
+        # There is a dependency loop which prevents d-i from being able to
+        # configure these.  Since there is actually nothing to do to configure
+        # them, they can as well be just marked installed already.
+	sed -i -e '/Package: hurd-libs/,+1s/install ok unpacked/install ok installed/' $(DPKGDIR)/status
+	sed -i -e '/Package: libparted/,+1s/install ok unpacked/install ok installed/' $(DPKGDIR)/status
+endif
+
 ifdef OMIT_DPKG
 	rm -rf $(DPKGDIR)
 endif
@@ -772,6 +782,16 @@ $(KERNEL): $(realpath $(dir $(KERNEL))/$(SYMLINK_KERNEL))
 	ln -s $(SYMLINK_KERNEL) $@
 	update-manifest $@ $(MANIFEST-KERNEL)
 endif
+
+$(DTBS): $(TEMP_KERNEL)
+	mkdir -p $(SOME_DEST)/$(EXTRANAME)
+	set -ex ; for dtb in $(TEMP_DTBS)/*.dtb ; do \
+		tgt=$(SOME_DEST)/$(EXTRANAME)$$(basename $$dtb); \
+		cp $$dtb $$tgt ; \
+		update-manifest $$tgt "Device Tree Blob: $$(basename $$dtb)";\
+	done
+	cp boot/README.device-tree $@
+	update-manifest $@ "Device Tree Blobs README"
 
 # bootable images
 $(BOOT): $(TEMP_BOOT)

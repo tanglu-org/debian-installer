@@ -15,14 +15,39 @@ debian-installer (201403XX) UNRELEASED; urgency=low
   * debian/control: Bump Standards-Version to 3.9.5, no further changes
     required.
   * Remove Otavio from Uploaders, with many thanks for his past work.
+  * Bump linux kernel version from 3.13-1 to 3.14-1.
+  * Adjust and apply patch from Daniel Baumann to deal with incompatible
+    changes in syslinux 6 (Closes: #746743):
+     - Bump syslinux-common versioned build-dep to >= 3:6
+     - Add isolinux and pxelinux build-deps.
+     - x86.cfg: Adjust paths to isolinux.bin and pxelinux.0
+     - x86.cfg: Adjust path to vesamenu.c32 and add its new dependencies
+                (libcom32.c32, libutil.c32, and also ldlinux.c32).
+  * Exclude .gitignore files in the dh_installdocs call to avoid spurious
+    files when building from a git checkout.
+  * Disable translation-status check when proposed-updates is enabled.
+    This file isn't going to be updated during stable's lifecycle, so
+    avoid pointless warning and sleeping.
 
   [ Samuel Thibault ]
   * Add a separate Hurd boot option for CJK support in pseudo-graphical mode, so
     the default can use 720x400 resolution, instead of using 640x400 which is
     not supported by some screens...
+  * Pre-configure hurd-libs and libparted.
+  * Increase room for udebs on hurd.
+  * Remove bogl-bterm-udeb on hurd.
 
   [ Martin Michlmayr ]
   * Add support for QNAP HS-210.  Thanks to Kevin Woldt for the patch.
+
+  [ Ian Campbell ]
+  * Move armmp subarch to toplevel armhf.
+  * Ship DTB files for netboot on armhf and armel/kirkwood.
+  * Drop version suffix from armhf kernel.
+
+  [ Robert Millan ]
+  * Remove kfreebsd-9 and switch to kfreebsd-10 as default (and only)
+    option. (Closes: #743292)
 
  -- Cyril Brulebois <kibi@debian.org>  Sun, 16 Mar 2014 16:20:52 +0100
 
