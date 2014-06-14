@@ -48,7 +48,8 @@ DEBIAN_VERSION ?= bartholomea
 # Define here from what release (codename!) components (udebs) should be taken
 # to build debian-installer. By default this is set to 'unstable' for building
 # daily images. For official builds this is overruled in debian/rules.
-USE_UDEBS_FROM ?= unstable
+USE_UDEBS_FROM ?= bartholomea
+USE_UDEBS_FROM_EXTRA ?= staging
 
 # Archive components from which to fetch debian-installer modules.
 UDEB_COMPONENTS ?= main/debian-installer

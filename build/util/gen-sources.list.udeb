@@ -7,8 +7,9 @@ NL="
 
 SOURCES_LIST=$1
 SUITE=$2
-UDEB_COMPONENTS=$3
-USE_PROPOSED_UPDATES=$4 # optional
+OTHER_SUITES=$3
+UDEB_COMPONENTS=$4
+USE_PROPOSED_UPDATES=$5 # optional
 
 # Set to 1 or 2 to see increasing debug info about mirror tests
 # Use 0 for quiet (normal) operation
@@ -72,6 +73,12 @@ for mirror in $MIRRORS; do
 			echo "$mirror $SUITE-proposed-updates $UDEB_COMPONENTS"
 			echo "INFO: using '$tmirror' for $SUITE-proposed-updates" >&2
 		fi
+		for other_suite in $OTHER_SUITES; do
+			if test_url $tmirror/dists/$other_suite/Release; then
+				echo "$mirror $other_suite $UDEB_COMPONENTS"
+				echo "INFO: using '$tmirror' for $other_suite" >&2
+			fi  
+		done
 	else
 		echo "$mirror $SUITE $UDEB_COMPONENTS"
 	fi
