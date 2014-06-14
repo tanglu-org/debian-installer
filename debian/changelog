@@ -3,6 +3,7 @@ debian-installer (20140614tanglu1) staging; urgency=medium
   * Merge with debian master, remaining changes:
     - change release name in rules to bartholomea
     - Set default i386 kernel flavor to 686-pae
+    - allow using more than one series in gen-sources.list.udeb
 
  -- Philip Muškovac <yofel@kubuntu.org>  Fri, 18 Apr 2014 19:49:40 +0200
 
