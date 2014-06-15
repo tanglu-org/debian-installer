@@ -1,3 +1,9 @@
+debian-installer (20140615tanglu1) staging; urgency=medium
+
+  * Rebuild to get the correct keyring on the image 
+
+ -- Philip Muškovac <yofel@kubuntu.org>  Sun, 15 Jun 2014 05:55:35 +0200
+
 debian-installer (20140614tanglu1) staging; urgency=medium
 
   * Merge with debian master, remaining changes:
