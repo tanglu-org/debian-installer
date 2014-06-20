@@ -1,8 +1,8 @@
-debian-installer (2014XXXXtanglu1) UNRELEASED; urgency=medium
+debian-installer (20140620tanglu1) staging; urgency=medium
 
   * Set Vcs urls to the gitorious repo
 
- -- Philip Muškovac <yofel@kubuntu.org>  Wed, 18 Jun 2014 20:09:54 +0200
+ -- Philip Muškovac <yofel@kubuntu.org>  Fri, 20 Jun 2014 17:11:41 +0200
 
 debian-installer (20140618tanglu1) staging; urgency=medium
 
