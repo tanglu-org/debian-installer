@@ -1,3 +1,10 @@
+debian-installer (20140623.tanglu) staging; urgency=medium
+
+  * Fix maintainer to tanglu developers
+  * Change to a versioning scheme that makes date parsing easier
+
+ -- Philip Muškovac <yofel@kubuntu.org>  Mon, 23 Jun 2014 13:42:07 +0200
+
 debian-installer (20140620tanglu1) staging; urgency=medium
 
   * Set Vcs urls to the gitorious repo
