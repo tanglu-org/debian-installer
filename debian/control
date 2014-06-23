@@ -1,7 +1,8 @@
 Source: debian-installer
 Section: devel
 Priority: optional
-Maintainer: Debian Install System Team <debian-boot@lists.debian.org>
+Maintainer: Tanglu Developers <tanglu-devel@lists.tanglu.org>
+XSBC-Original-Maintainer: Debian Install System Team <debian-boot@lists.debian.org>
 Uploaders: Cyril Brulebois <kibi@debian.org>
 Standards-Version: 3.9.5
 Vcs-Git: git://gitorious.org/tanglu/debian-installer.git
