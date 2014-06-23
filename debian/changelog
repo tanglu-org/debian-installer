@@ -1,4 +1,4 @@
-debian-installer (20140623.tanglu) staging; urgency=medium
+debian-installer (2014XXXX.tanglu) UNRELEASED; urgency=medium
 
   * Fix maintainer to tanglu developers
   * Change to a versioning scheme that makes date parsing easier
