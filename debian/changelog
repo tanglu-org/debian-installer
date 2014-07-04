@@ -1,3 +1,9 @@
+debian-installer (2014XXXXtanglu1) UNRELEASED; urgency=medium
+
+  * exchange Debian boot picture with Tanglu mod
+
+ -- Thomas Funk <t.funk@web.de>  Sat, 05 Jul 2014 01:00:59 +0200
+
 debian-installer (20140627tanglu1) staging; urgency=medium
 
   * Fix maintainer to tanglu developers
