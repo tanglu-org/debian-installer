@@ -119,7 +119,7 @@ endif
 
 # Useful command sequences
 define submake
-  $(ROOTCMD) $(MAKE) --no-print-directory
+  $(ROOTCMD) $(MAKE) --no-print-directory -j1
 endef
 
 define recurse_once
@@ -424,6 +424,7 @@ ifdef KERNELVERSION
 
 	# These files depmod makes are used by udev.
 	find $(TREE)/lib/modules/ -maxdepth 2 -name 'modules*.bin' \
+		-not -name 'modules.builtin.bin' \
 		-not -type d | while read f; do rm -f $${f%.bin}; done
 
 	# These files are used to build special kernel images for some
@@ -637,20 +638,12 @@ endif
 
 # Get the list of udebs to install.
 # HACK Alert: pkg-lists/ is still sorted by TYPE instead of a dir hierarchy.
-UDEBS = $(shell set -e; get-packages udeb update >&2; pkg-list $(TYPE) "$(DRIVER_FOR)" $(KERNEL_FLAVOUR) $(KERNELMAJOR) "$(SUBARCH)" $(KERNELIMAGEVERSION)) $(EXTRAS)
+UDEBS = $(shell set -e; get-packages udeb update >&2; pkg-list $(TYPE) "$(DRIVER_FOR)" $(KERNEL_FLAVOUR) $(KERNELMAJOR) "$(SUBARCH)" $(KERNELVERSION)) $(EXTRAS)
 
 # Get all required udebs and put them in UDEBDIR.
 $(STAMPS)get_udebs-$(targetstring)-stamp: sources.list.udeb
 	dh_testroot
 	@rm -f $@
-
-	# Ensure that sources.list.udeb has trusted=yes.
-	# Only needed for a while to ensure all build systems get the new
-	# version of the file, then can be removed.
-	if ! grep -q -L 'trusted=yes' sources.list.udeb; then \
-		rm -f sources.list.udeb; \
-		$(MAKE) sources.list.udeb; \
-	fi
 
 	get-packages udeb $(UDEBS)
 	@touch $@

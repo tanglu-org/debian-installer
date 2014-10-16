@@ -9,6 +9,13 @@
 # debug versions of the needed udebs
 #DEBUG = y
 
+# Default kernel ABI version to use. Append a kernel flavour to
+# produce KERNELVERSION.
+LINUX_KERNEL_ABI ?= 3.16-3
+
+# Always "di" these days
+KERNEL_FLAVOUR ?= di
+
 # List here any extra udebs that are not in the list file but that
 # should still be included on the system.
 EXTRAS ?=
@@ -59,11 +66,6 @@ BUILD_DATE ?= $(shell date -u '+%Y%m%d-%H:%M')
 
 # Produce a beep at boot menu
 BOOTMENU_BEEP ?= n
-
-# x86: configure syslinux to have tasksel install a different desktop
-# environment than the default (xfce).
-# Possible values: gnome, kde, lxde
-DESKTOP = 
 
 # Filesystem type for the initrd, currently valid values are ext2, cramfs,
 # and initramfs.
