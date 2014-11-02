@@ -1,3 +1,9 @@
+debian-installer (20141102tanglu1) staging; urgency=medium
+
+  * New d-i build
+
+ -- Matthias Klumpp <mak@debian.org>  Sun, 02 Nov 2014 15:24:42 +0100
+
 debian-installer (20140724tanglu1) staging; urgency=medium
 
   * exchange Debian boot picture with Tanglu mod
