@@ -1,55 +1,107 @@
-debian-installer (20141124tanglu1) staging; urgency=medium
-
-  * New d-i rebuild
-
- -- Matthias Klumpp <mak@debian.org>  Mon, 24 Nov 2014 16:46:48 +0100
-
-debian-installer (20141102tanglu1) staging; urgency=medium
-
-  * New d-i build
-
- -- Matthias Klumpp <mak@debian.org>  Sun, 02 Nov 2014 15:24:42 +0100
-
-debian-installer (20140724tanglu1) staging; urgency=medium
-
-  * exchange Debian boot picture with Tanglu mod
-
- -- Thomas Funk <t.funk@web.de>  Sat, 05 Jul 2014 01:00:59 +0200
-
-debian-installer (20140627tanglu1) staging; urgency=medium
-
-  * Fix maintainer to tanglu developers
-
- -- Philip Muškovac <yofel@kubuntu.org>  Mon, 23 Jun 2014 13:42:07 +0200
-
-debian-installer (20140620tanglu1) staging; urgency=medium
-
-  * Set Vcs urls to the gitorious repo
-
- -- Philip Muškovac <yofel@kubuntu.org>  Fri, 20 Jun 2014 17:11:41 +0200
-
-debian-installer (20140618tanglu1) staging; urgency=medium
-
-  * Rebuild to pick up the last netcfg changes
-
- -- Philip Muškovac <yofel@kubuntu.org>  Wed, 18 Jun 2014 19:45:22 +0200
-
-debian-installer (20140615tanglu1) staging; urgency=medium
-
-  * Rebuild to get the correct keyring on the image 
-
- -- Philip Muškovac <yofel@kubuntu.org>  Sun, 15 Jun 2014 05:55:35 +0200
-
-debian-installer (20140614tanglu1) staging; urgency=medium
+debian-installer (20150102tanglu1) staging; urgency=medium
 
   * Merge with debian master, remaining changes:
     - change release name in rules to bartholomea
-    - Set default i386 kernel flavor to 686-pae
+    - set default i386 kernel flavor to 686-pae
     - allow using more than one series in gen-sources.list.udeb
+    - set Vcs urls to the gitorious repo
+    - fix maintainer to tanglu developers
+    - exchange Debian boot picture with Tanglu mod for x86
 
- -- Philip Muškovac <yofel@kubuntu.org>  Fri, 18 Apr 2014 19:49:40 +0200
+ -- Philip Muškovac <yofel@kubuntu.org>  Fri, 02 Jan 2015 00:05:08 +0100
 
-debian-installer (201403XX) UNRELEASED; urgency=low
+debian-installer (201410XX) UNRELEASED; urgency=medium
+
+  [ Karsten Merker ]
+  * Add hd-media support for the armhf platform.
+
+  [ Aurelien Jarno ]
+  * Add scsi-modules to the cdrom flavour on ppc64el to be able to access
+    the CD-ROM drive.
+
+  [ Steven Chamberlain ]
+  * Update kfreebsd (kernel) BASEVERSION to 10.1-0
+
+  [ Ian Campbell ]
+  * Add grub.cfg to x86 netboot mini.iso for use on EFI systems
+    (Closes: #762618).
+  * Use --- as options separator for all Linux command lines. (Closes: #764675)
+  * Provide a PXE bootable grub.efi in the netboot flavour for amd64 and arm64.
+
+  [ Cyril Brulebois ]
+  * Bump linux kernel version from 3.16-2 to 3.16.0-4.
+  * Update (linux) i386 config to pull 586 packages instead of 486 ones,
+    since the minimal requirements on i386 (consistency!) have been bumped.
+
+  [ Samuel Thibault ]
+  * Update documentation of required minimum disk size.
+  * hurd: Also create /servers/startup
+
+  [ Didier Raboud ]
+  * Add Lines boot pictures for x86 Linux, Hurd and kFreeBSD; also make
+    these default
+
+ -- Karsten Merker <merker@debian.org>  Thu, 02 Oct 2014 20:12:28 +0200
+
+debian-installer (20141002) unstable; urgency=low
+
+  [ Samuel Thibault ]
+  * Add speech synthesis entries in alternate desktop boot menus.
+  * Add keyboard shortcut for Advanced options menu.
+
+  [ Ian Campbell ]
+  * Depend on mklibs >= 0.1.40 for ARM EABI fixes relating to the handling
+    of__aeabi_* symbols (Closes: #758581).
+  * Switch to installing Jessie by default on ARM64.
+  * Build netboot mini.iso on ARM64.
+  * Build cdrom flavour for ARM64.
+
+  [ Cyril Brulebois ]
+  * Deal with even more incompatible changes on the syslinux side by
+    adding a syslinux-utils build-dep (Closes: #751731), no thanks to its
+    maintainer as far as cooperation is concerned (See: #751724, #759189).
+  * Bump linux kernel version from 3.14-2 to 3.16-2.
+  * Drop code snippet meant to ensure every checkout would get an updated
+    sources.list.udeb (with [trusted=yes]), since that was meant to be
+    temporary, and that was almost 2 years ago.
+  * Replace ttf-kannada-fonts-udeb with fonts-knda-udeb.
+  * Specify -j1 for the submake definition in build/Makefile; that's what
+    happens anyway, and warnings go away accordingly.
+  * Add fonts-lohit-guru-udeb to gtk images, fixing rendering for Punjabi
+    (Closes: #761573).
+  * Apply patch from Ron and Chris Kuehl to fix lib location and search
+    path for syslinux >= 5. Some constraints include having ldlinux.c32
+    in the tftp root, and being able to find some support libraries
+    thanks to a defined path (Closes: #756275). Many thanks!
+  * Update translation-status for the release.
+
+  [ Frederic Bonnard / Aurelien Jarno ]
+  * Add ppc64el support installing sid (Closes: #754093).
+
+  [ Steven Chamberlain ]
+  * On kfreebsd and hurd, which use GRUB for PXE booting, request two
+    additional modules in the grub-mkimage step: (Closes: #759686)
+    - tftp: required since GRUB 2.02 otherwise PXE boot will crash/hang
+    - gfxterm_background: required since GRUB 2.02 for the boot splash
+      image functionality to be available
+    - raise the grub-pc (and indirectly grub-common) build dependency to
+      >= 2.02~beta2~ on these architectures, because module
+      gfxterm_background did not exist in GRUB 2.00
+    - raise the xorriso build dependency to >= 1.3.2-1~ on these
+      architectures, for compatibility with grub-mkrescue in GRUB 2.02
+
+  [ Joey Hess ]
+  * Remove desktop selection from syslinux; now available in tasksel.
+  * remove desktop=xfce preseeding on kfreebsd-* and hurd, since tasksel
+    3.27 knows about architecture-specific defaults (Closes: #762614).
+
+  [ Ben Hutchings ]
+  * Keep Linux modules.builtin file in the initrd.
+  * Update new-kernel-checklist.txt for the last few years' changes.
+
+ -- Cyril Brulebois <kibi@debian.org>  Thu, 02 Oct 2014 08:21:25 +0200
+
+debian-installer (20140802) unstable; urgency=low
 
   [ Cyril Brulebois ]
   * debian/rules: Introduce build-{arch,indep} targets, depending on
@@ -70,6 +122,7 @@ debian-installer (201403XX) UNRELEASED; urgency=low
   * Disable translation-status check when proposed-updates is enabled.
     This file isn't going to be updated during stable's lifecycle, so
     avoid pointless warning and sleeping.
+  * Update translation-status for the release.
 
   [ Samuel Thibault ]
   * Add a separate Hurd boot option for CJK support in pseudo-graphical mode, so
@@ -91,7 +144,25 @@ debian-installer (201403XX) UNRELEASED; urgency=low
   * Remove kfreebsd-9 and switch to kfreebsd-10 as default (and only)
     option. (Closes: #743292)
 
- -- Cyril Brulebois <kibi@debian.org>  Sun, 16 Mar 2014 16:20:52 +0100
+  [ Philipe Muškovac ]
+  * Use -perm /0111 in Makefile as + is deprecated. Closes: #752009
+
+  [ Colin Watson ]
+  * Remove mention of partman's ability to create file systems, check file
+    systems, and copy data between partitions, since those all rely on
+    libparted's filesystem-handling code which is being removed.
+
+  [ Bastien ROUCARIÈS ]
+  * Support for DNS-320. (Closes: #751716)
+
+  [ Ian Campbell ]
+  * Bump linux kernel version from 3.14-1 to 3.14-2.
+
+  [ Aurelien Jarno ]
+  * Remove fb-modules udebs on mips*/sb1-bcm91250a.
+  * Add MIPSEL Loongson 3 images.
+
+ -- Cyril Brulebois <kibi@debian.org>  Sat, 02 Aug 2014 02:59:35 +0200
 
 debian-installer (20140316) unstable; urgency=medium
 
@@ -142,16 +213,6 @@ debian-installer (20140316) unstable; urgency=medium
     between d-i and win32-loader
 
  -- Cyril Brulebois <kibi@debian.org>  Sun, 16 Mar 2014 13:45:22 +0100
-
-debian-installer (20140210tanglu1) staging; urgency=medium
-
-  * Use tanglu-archive-keyring 
-  * Use udebs from aequorea 
-  * Various branding changes
-  * Create /etc/udev/links.conf which isn't part of udev-udeb anymore
-  * Don't run mklibs during build
-
- -- Philip Muškovac <yofel@kubuntu.org>  Sun, 02 Jul 2013 11:01:05 +0200
 
 debian-installer (20140208) unstable; urgency=low
 
