@@ -22,6 +22,19 @@ The joy theme images (list of files below) have been designed from the
 joy theme (© 2012 Adrien Aubourg, GPLv2) but use the klowner layout and
 a rebuilt-from-scratch "debian" word.
 
-    build/boot/hurd/pics/joy-hurd.{svg,png}
-    build/boot/kfreebsd/pics/joy-kbsd.{svg,png}
-    build/boot/x86/pics/joy.{svg,png}
+    build/boot/hurd/pics/joy-hurd.svg
+    build/boot/kfreebsd/pics/joy-kbsd.svg
+    build/boot/x86/pics/joy.svg
+
+The Lines theme images (list of files below) have been designed from the
+Lines theme (© 2014 Juliette Taka BELIN, GPLv2+) but use the klowner
+layout.
+
+    build/boot/hurd/pics/lines-hurd.svg
+    build/boot/kfreebsd/pics/lines-kbsd.svg
+    build/boot/x86/pics/lines.svg
+
+The gen-hd-image tool, used to build bootable partitioned disk images, is
+Copyright 2014,2015 Karsten Merker <merker@debian.org> and is dual-licensed.
+It is provided under the terms of the GNU GPL version 2 or any later
+version, or alternatively under the terms of the X11 license.

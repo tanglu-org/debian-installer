@@ -1,16 +1,66 @@
-debian-installer (20150102tanglu1) staging; urgency=medium
+debian-installer (20150403tanglu1) staging; urgency=medium
 
   * Merge with debian master, remaining changes:
     - change release name in rules to chromodoris
     - set default i386 kernel flavor to 686-pae
     - allow using more than one series in gen-sources.list.udeb
-    - set Vcs urls to the gitorious repo
+    - set Vcs urls to the gitlab repo
     - fix maintainer to tanglu developers
     - exchange Debian boot picture with Tanglu mod for x86
 
- -- Philip Muškovac <yofel@kubuntu.org>  Fri, 02 Jan 2015 00:05:08 +0100
+ -- Philip Muškovac <yofel@kubuntu.org>  Fri, 03 Apr 2015 22:50:38 +0200
 
-debian-installer (201410XX) UNRELEASED; urgency=medium
+debian-installer (20150401) UNRELEASED; urgency=medium
+
+  [ Karsten Merker ]
+  * Add util/gen-hd-image (a script to create partitioned harddisk images
+    from a directory and optionally install a bootloader into the image).
+  * Add SD-card image build support for hd-media builds on armhf.
+  * Add SD-card image and tftpboot tarball build support for netboot builds
+    on armhf.
+  * Add u-boot-imx, u-boot-omap and u-boot-sunxi to the "built-using"
+    package list.
+  * util/gen-hd-image: set proper permissions for the generated partition
+    image.
+
+ -- Karsten Merker <merker@debian.org>  Wed, 01 Apr 2015 22:36:01 +0200
+
+debian-installer (20150324) unstable; urgency=medium
+
+  [ Didier Raboud ]
+  * Correct typo and joy images paths in debian/copyright
+  * Use APT `apt-config dump`s result to determine where to find the
+    system's sources.list (Closes: #775136)
+
+  [ Raphaël Hertzog ]
+  * Bump Build-Depends on dns323-firmware-tools to require version
+    0.7.3-1 because d-i uses options that are not supported in the wheezy
+    version of the package.
+
+  [ Karsten Merker ]
+  * Add boot/arm/u-boot-image-config (a list of u-boot components and their
+    offsets on disk, needed to create bootable images for arm-based systems).
+  * Provide u-boot binaries for armhf systems without u-boot in flash.
+  * Add a workaround for the console baudrate mismatch on some i.MX6-based
+    systems in boot/arm/bootscr.mainline_common.
+
+  [ Helge Deller ]
+  * alpha: Switch to KERNELVERSION
+  * alpha,hppa: add debian-ports gpg keyring
+
+  [ Michael Walle ]
+  * Add support for the Buffalo Linkstation LS-CHLv2/LS-XHL (Closes: #744716).
+
+  [ Cyril Brulebois ]
+  * Extend write-built-using to also generate the ${extra:Built-Using}
+    substvar, making it possible to track packages mentioned in the
+    EXTRA_PACKAGES variable (currently set to "bf-utf-source syslinux").
+    Thanks to Ansgar Burchardt for the reports (Closes: #696418, #700026).
+  * Update translation-status for the release.
+
+ -- Cyril Brulebois <kibi@debian.org>  Tue, 24 Mar 2015 03:25:12 +0100
+
+debian-installer (20150107) unstable; urgency=medium
 
   [ Karsten Merker ]
   * Add hd-media support for the armhf platform.
@@ -32,6 +82,7 @@ debian-installer (201410XX) UNRELEASED; urgency=medium
   * Bump linux kernel version from 3.16-2 to 3.16.0-4.
   * Update (linux) i386 config to pull 586 packages instead of 486 ones,
     since the minimal requirements on i386 (consistency!) have been bumped.
+  * Update translation-status for the release.
 
   [ Samuel Thibault ]
   * Update documentation of required minimum disk size.
@@ -39,9 +90,21 @@ debian-installer (201410XX) UNRELEASED; urgency=medium
 
   [ Didier Raboud ]
   * Add Lines boot pictures for x86 Linux, Hurd and kFreeBSD; also make
-    these default
+    these default, add their copyright information in debian/copyright
 
- -- Karsten Merker <merker@debian.org>  Thu, 02 Oct 2014 20:12:28 +0200
+ -- Cyril Brulebois <kibi@debian.org>  Wed, 07 Jan 2015 04:25:52 +0100
+
+debian-installer (20150102tanglu1) staging; urgency=medium
+
+  * Merge with debian master, remaining changes:
+    - change release name in rules to chromodoris
+    - set default i386 kernel flavor to 686-pae
+    - allow using more than one series in gen-sources.list.udeb
+    - set Vcs urls to the gitorious repo
+    - fix maintainer to tanglu developers
+    - exchange Debian boot picture with Tanglu mod for x86
+
+ -- Philip Muškovac <yofel@kubuntu.org>  Fri, 02 Jan 2015 00:05:08 +0100
 
 debian-installer (20141002) unstable; urgency=low
 
