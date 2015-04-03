@@ -8,6 +8,8 @@ debian-installer (20150403tanglu1) staging; urgency=medium
     - fix maintainer to tanglu developers
     - exchange Debian boot picture with Tanglu mod for x86
 
+  * Bump kernel version to 3.18.0-trunk
+
  -- Philip Muškovac <yofel@kubuntu.org>  Fri, 03 Apr 2015 22:50:38 +0200
 
 debian-installer (20150401) UNRELEASED; urgency=medium
