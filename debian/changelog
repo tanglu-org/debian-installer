@@ -1,3 +1,78 @@
+debian-installer (20150506tanglu1) UNRELEASED; urgency=medium
+
+  * Merge with debian master, remaining changes:
+    - change release name in rules to chromodoris
+    - set default i386 kernel flavor to 686-pae
+    - allow using more than one series in gen-sources.list.udeb
+    - set Vcs urls to the gitlab repo
+    - fix maintainer to tanglu developers
+    - exchange Debian boot picture with Tanglu mod for x86
+    - change kernel version to 3.18-trunk
+
+ -- Philip Muškovac <yofel@kubuntu.org>  Wed, 06 May 2015 21:01:00 +0200
+
+debian-installer (20150428) UNRELEASED; urgency=medium
+
+  [ Didier Raboud ]
+  * jessie is released! The next target is stretch; update those files accordingly:
+    - build/boot/x86/xen/debian.cfg
+    - build/config/common
+    - doc/devel/internals/building.xml
+    - debian/rules
+  * In syslinux configuration, drop default64 statements that have not
+    been working since Squeeze
+  * In syslinux configuration, reorder alternatives to put the gtk
+    option first
+  * Default to graphical install, reorder and rephrase the help texts
+    (Closes: #485586)
+
+  [ Steven Chamberlain]
+  * Slightly reduce kfreebsd-amd64 MFSROOT to 68 MiB, reducing total
+    memory requirement to 160 MiB and leaving about 4 MiB safety margin.
+    (Closes: #783773)
+  * For kfreebsd, override /etc/default-release to unstable, and use
+    jessie-kfreebsd as the default stable release, as used by
+    choose-mirror.
+
+ -- Didier Raboud <odyx@debian.org>  Sun, 29 Mar 2015 17:43:38 +0200
+
+debian-installer (20150422) unstable; urgency=medium
+
+  * Update translation-status for the release.
+
+ -- Cyril Brulebois <kibi@debian.org>  Wed, 22 Apr 2015 21:41:38 +0200
+
+debian-installer (20150418) unstable; urgency=medium
+
+  [ Karsten Merker ]
+  * Add util/gen-hd-image (a script to create partitioned harddisk images
+    from a directory and optionally install a bootloader into the image).
+  * Add SD-card image build support for hd-media builds on armhf.
+  * Add SD-card image and tftpboot tarball build support for netboot builds
+    on armhf.
+  * Add u-boot-imx, u-boot-omap and u-boot-sunxi to the "built-using"
+    package list.
+  * util/gen-hd-image: set proper permissions for the generated partition
+    image.
+  * Add a symlink boot.scr.uimg -> debian-installer/armhf/tftpboot.scr
+    in the armhf netboot.tar.gz to support network autoboot with modern
+    u-boot versions.
+  * Provide u-boot and SD-card images for the Olimex A20-OLinuXino-MICRO
+    and for the LinkSprite pcDuino3 (support for both has been added
+    in u-boot 2014.10+dfsg1-5).
+
+  [ Ben Hutchings ]
+  * Include fb-modules on powerpc if available (Closes: #782059).
+
+  [ Cyril Brulebois ]
+  * Restore shortcuts (install, installspk, expert, menu, etc.) on help
+    screens by restoring the menu.cfg include which was probably dropped
+    accidentally (Closes: #764154, #781853, #781992), as pointed out by
+    Vaclav Ovsik. Thanks!
+  * Update translation-status for the release.
+
+ -- Cyril Brulebois <kibi@debian.org>  Sat, 18 Apr 2015 11:39:37 +0200
+
 debian-installer (20150412tanglu1) staging; urgency=medium
 
   * Merge with debian master, remaining changes:
@@ -11,21 +86,6 @@ debian-installer (20150412tanglu1) staging; urgency=medium
   * Bump kernel version to 3.18.0-trunk
 
  -- Philip Muškovac <yofel@kubuntu.org>  Sun, 12 Apr 2015 19:17:57 +0200
-
-debian-installer (20150401) UNRELEASED; urgency=medium
-
-  [ Karsten Merker ]
-  * Add util/gen-hd-image (a script to create partitioned harddisk images
-    from a directory and optionally install a bootloader into the image).
-  * Add SD-card image build support for hd-media builds on armhf.
-  * Add SD-card image and tftpboot tarball build support for netboot builds
-    on armhf.
-  * Add u-boot-imx, u-boot-omap and u-boot-sunxi to the "built-using"
-    package list.
-  * util/gen-hd-image: set proper permissions for the generated partition
-    image.
-
- -- Karsten Merker <merker@debian.org>  Wed, 01 Apr 2015 22:36:01 +0200
 
 debian-installer (20150324) unstable; urgency=medium
 
