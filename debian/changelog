@@ -1,4 +1,4 @@
-debian-installer (20150506tanglu1) UNRELEASED; urgency=medium
+debian-installer (20150514tanglu1) staging; urgency=medium
 
   * Merge with debian master, remaining changes:
     - change release name in rules to chromodoris
@@ -7,9 +7,9 @@ debian-installer (20150506tanglu1) UNRELEASED; urgency=medium
     - set Vcs urls to the gitlab repo
     - fix maintainer to tanglu developers
     - exchange Debian boot picture with Tanglu mod for x86
-    - change kernel version to 3.18-trunk
+    - change kernel version to 4.0.0-1
 
- -- Philip Muškovac <yofel@kubuntu.org>  Wed, 06 May 2015 21:01:00 +0200
+ -- Philip Muškovac <yofel@kubuntu.org>  Thu, 14 May 2015 17:24:01 +0200
 
 debian-installer (20150428) UNRELEASED; urgency=medium
 
