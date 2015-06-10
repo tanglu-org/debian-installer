@@ -1,3 +1,9 @@
+debian-installer (20150610tanglu1) staging; urgency=medium
+
+  * Bump kernel version to 4.0.0-2
+
+ -- Philip Muškovac <yofel@kubuntu.org>  Wed, 10 Jun 2015 20:20:08 +0200
+
 debian-installer (20150514tanglu1) staging; urgency=medium
 
   * Merge with debian master, remaining changes:
