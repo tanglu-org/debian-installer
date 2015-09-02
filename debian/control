@@ -62,7 +62,7 @@ Build-Depends:
 #		them.
 #		Lintian: Yes, we know it's essential. We prefer not to
 #		count on it remaining so.
-	mklibs (>= 0.1.40),
+	mklibs (>= 0.1.40), mklibs-copy (>= 0.1.40),
 #		We use mklibs for library reduction.
 	genisoimage [!s390 !s390x],
 #		For making mini isos.
@@ -71,10 +71,9 @@ Build-Depends:
 #		default.)
 	hfsutils [powerpc],
 #		For making bootable HFS USB sticks for powerpc.
-	dosfstools [i386 ia64 m68k amd64 armhf arm64],
+	dosfstools [i386 m68k amd64 armhf arm64],
 #		For creating FAT filesystems with mkfs.msdos.
 #		Of course i386/amd64 use this for floppies, CDs etc.
-#		ia64 uses it for floppies (?)
 #		m68k uses it for atari floppies
 #		armhf uses it for building bootable SD card images
 	cpio,
@@ -101,7 +100,6 @@ Build-Depends:
 	pxelinux [i386 amd64],
 	syslinux-common (>= 3:6) [i386 amd64],
 #		With isohybrid.
-	elilo [ia64],
 	yaboot [powerpc],
 #		For all our powerpc boot needs. Well, not really.
 	aboot (>= 0.9b-2) [alpha],
@@ -112,12 +110,6 @@ Build-Depends:
 #		include it for completeness.
 	sparc-utils [sparc sparc64],
 #		For elftoaout and piggyback, to make netboot images.
-	genisovh [mips],
-#		Makes mini iso images bootable on SGI MIPSen.
-	tip22 [mips],
-#		Piggyback netboot images.
-	sibyl [mips mipsel],
-# 		For booting the SWARM board.
 	atari-bootstrap [m68k],
 #		Booting and other tools for Atari systems.
 	vmelilo [m68k],
@@ -146,7 +138,7 @@ Build-Depends:
 	tofrodos [i386 amd64 kfreebsd-i386 kfreebsd-amd64],
 #		For todos, used on files that need to be accessible from
 #		DOS.
-	mtools [i386 ia64 m68k amd64 armhf arm64 kfreebsd-i386 kfreebsd-amd64 hurd-i386],
+	mtools [i386 m68k amd64 armhf arm64 kfreebsd-i386 kfreebsd-amd64 hurd-i386],
 #		mcopy is used to put files onto FAT filesystems w/o
 #		mounting them.
 # 
@@ -180,6 +172,6 @@ Package: debian-installer
 Architecture: any
 Built-Using: ${initrd:Built-Using}, ${extra:Built-Using}
 Depends: ${misc:Depends}
-Description: Debian installer
+Description: Debian Installer documentation
  This package currently only contains some documentation for the Debian
  installer. We welcome suggestions about what else to put in it.

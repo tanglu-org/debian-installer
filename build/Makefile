@@ -780,8 +780,10 @@ endif
 
 $(DTBS): $(TEMP_KERNEL)
 	mkdir -p $(SOME_DEST)/$(EXTRANAME)
-	set -ex ; for dtb in $(TEMP_DTBS)/*.dtb ; do \
-		tgt=$(SOME_DEST)/$(EXTRANAME)$$(basename $$dtb); \
+	set -ex ; for dtb in $$(find $(TEMP_DTBS)/ -name *.dtb) ; do \
+		dir=$(SOME_DEST)/$(EXTRANAME)$$(dirname $${dtb#$(TEMP_DTBS)/}); \
+		tgt=$$dir/$$(basename $$dtb); \
+		mkdir -p $$dir ; \
 		cp $$dtb $$tgt ; \
 		update-manifest $$tgt "Device Tree Blob: $$(basename $$dtb)";\
 	done
@@ -869,7 +871,7 @@ $(STAMPS)extra-$(targetstring)-stamp: $(STAMPS)get_udebs-$(targetstring)-stamp
 	mkdir -p $(TREE)
 	echo -n > $(TEMP)/diskusage.txt
 	echo -n > $(TEMP_UDEB_LIST)
-	
+
 	set -e; \
 	for file in $(UDEBS); do \
 		cp $(UDEBDIR)/$$file* $(TREE) ; \

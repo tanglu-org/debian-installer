@@ -1,8 +1,127 @@
-debian-installer (20150610tanglu1) staging; urgency=medium
+debian-installer (20150903tanglu1) UNRELEASED; urgency=medium
 
-  * Bump kernel version to 4.0.0-2
+  * Merge with debian master, remaining changes:
+    - change release name in rules to chromodoris
+    - set default i386 kernel flavor to 686-pae
+    - allow using more than one series in gen-sources.list.udeb
+    - set Vcs urls to the gitlab repo
+    - fix maintainer to tanglu developers
+    - exchange Debian boot picture with Tanglu mod for x86
+    - change kernel version to 4.2.0-trunk
 
- -- Philip Muškovac <yofel@kubuntu.org>  Wed, 10 Jun 2015 20:20:08 +0200
+ -- Philip Muškovac <yofel@kubuntu.org>  Thu, 03 Sep 2015 01:23:56 +0200
+
+debian-installer (20150828) unstable; urgency=medium
+
+  [ Didier Raboud ]
+  * In the syslinux menu tree:
+    - Add syslinux machinery to use ifcpu64.c32 on multi-arch CDs, for CPU
+      64-bit capability detection
+    - Swap one-key shortcuts to let them access the graphical variants
+    - Add the correct one-key shortcuts to 32-bit variant
+    - Replace (32 bits) prefix mentions by the correct "32-bit" in parentheses
+    - Shorten the 32-bits menu label to use the i386 Debian architecture name,
+      to make the whole label short enough
+    - Shorten the 32-bit Graphical automated install entry label
+    - Drop unused non-gtk speech synthesis entries
+
+  [ Samuel Thibault ]
+  * Add beep to UEFI x86 boot menu (Closes: #796591).
+  * Add 's' shortcut for speech to UEFI x86 boot menu.
+
+  [ Aurelien Jarno ]
+  * Drop r4k-ip22, r5k-ip32 and sb1-bcm91250a images on mips.
+  * Drop sb1-bcm91250a images on mipsel.
+
+  [ Cyril Brulebois ]
+  * Update translation-status for the release.
+
+ -- Cyril Brulebois <kibi@debian.org>  Fri, 28 Aug 2015 09:07:40 +0200
+
+debian-installer (20150813) unstable; urgency=medium
+
+  [ Didier Raboud ]
+  * Add missing 32bits rescue menu entries in multiarch 'Advanced
+    options' menu (Closes: #793118)
+
+  [ Samuel Thibault ]
+  * Bump gnumach kernel version to 1.5.
+
+  [ Cyril Brulebois ]
+  * Bump linux kernel version from 4.0.0-2 to 4.1.0-1
+  * Replace ttf-cjk-compact-udeb with fonts-android-udeb, thanks to
+    Kenshi Muto for the input on the CJK front and for the patch!
+    (Closes: #794432).
+  * Update translation-status for the release.
+
+ -- Cyril Brulebois <kibi@debian.org>  Thu, 13 Aug 2015 11:48:12 +0200
+
+debian-installer (20150718) unstable; urgency=medium
+
+  [ Didier Raboud ]
+  * jessie is released! The next target is stretch; update those files
+    accordingly:
+    - build/boot/x86/xen/debian.cfg
+    - build/config/common
+    - doc/devel/internals/building.xml
+    - debian/rules
+  * In the syslinux menu tree:
+    - Drop default64 statements that have not been working since Squeeze
+    - Reorder alternatives to put the gtk option first
+    - Default to graphical install, reorder and rephrase the help texts
+      (Closes: #485586)
+    - Swap amd64 and i386 to let the first be the norm, and the latter be the
+      special case, rename labels
+  * Bump linux kernel version from 3.16.0-4 to 4.0.0-1
+
+  [ Steven Chamberlain]
+  * Slightly reduce kfreebsd-amd64 MFSROOT to 68 MiB, reducing total
+    memory requirement to 160 MiB and leaving about 4 MiB safety margin.
+    (Closes: #783773)
+  * For kfreebsd, override /etc/default-release to unstable, and use
+    jessie-kfreebsd as the default stable release, as used by
+    choose-mirror.
+
+  [ Aurelien Jarno ]
+  * Use mklibs-copy instead of mklibs, as discussed on the mailing list.
+
+  [ Martin Michlmayr ]
+  * Append DTB for SheevaPlug, SheevaPlug eSATA and GuruPlug. (Closes:
+    #785588)
+  * Add image for Seagate DockStar.
+  * Drop kirkwood/netboot-gtk image since it's never been used.
+  * Append DTB for OpenRD Base, Client and Ultimate.
+  * Append DTB for LaCie NAS devices.
+  * Remove D-Link DNS-323 / Conceptronic CH3SNAS image since this device
+    is no longer supported in the Debian kernel due do size limitations.
+  * Append DTB for QNAP NAS devices.
+  * Determine the CPU variant on QNAP NAS devices in order to use the
+    right DTB.
+
+  [ Cyril Brulebois ]
+  * Adjust u-boot-image-config, thanks to Vagrant Cascadian
+    (Closes: #786369):
+    - MX6_Cubox-i is now upstream, under a different name, with support
+      for hummingboard-i1 and hummingboard-i2ex.
+    - Wandboard now supports all three variants (Solo, Dual-Lite, and
+      Quad), instead of just the Quad one.
+    - PandaBoard: use u-boot.img instead of u-boot.bin
+  * Bump linux kernel version from 4.0.0-1 to 4.0.0-2
+  * Update partman-auto-raid-recipe.txt to mention support for <extra-args>,
+    thanks to partman-md and partman-auto-raid patches by Philipp Hahn
+    (See: #790941).
+  * Drop all build-dep bits that are specific to ia64, as this architecture has
+    been discontinued for a while. This notably removes the reference to elilo
+    (Closes: #768427).
+  * Update translation-status for the release.
+  * Mention documentation in short description, fixing description-is-pkg-name
+    lintian tag and reflecting the current contents of the .deb package.
+
+  [ Ian Campbell ]
+  * Adjust build to handle DTBs in subdirectories, currently the case on arm64
+    (Closes: #786882).
+
+ -- Cyril Brulebois <kibi@debian.org>  Sat, 18 Jul 2015 07:53:17 +0200
 
 debian-installer (20150514tanglu1) staging; urgency=medium
 
@@ -16,31 +135,6 @@ debian-installer (20150514tanglu1) staging; urgency=medium
     - change kernel version to 4.0.0-1
 
  -- Philip Muškovac <yofel@kubuntu.org>  Thu, 14 May 2015 17:24:01 +0200
-
-debian-installer (20150428) UNRELEASED; urgency=medium
-
-  [ Didier Raboud ]
-  * jessie is released! The next target is stretch; update those files accordingly:
-    - build/boot/x86/xen/debian.cfg
-    - build/config/common
-    - doc/devel/internals/building.xml
-    - debian/rules
-  * In syslinux configuration, drop default64 statements that have not
-    been working since Squeeze
-  * In syslinux configuration, reorder alternatives to put the gtk
-    option first
-  * Default to graphical install, reorder and rephrase the help texts
-    (Closes: #485586)
-
-  [ Steven Chamberlain]
-  * Slightly reduce kfreebsd-amd64 MFSROOT to 68 MiB, reducing total
-    memory requirement to 160 MiB and leaving about 4 MiB safety margin.
-    (Closes: #783773)
-  * For kfreebsd, override /etc/default-release to unstable, and use
-    jessie-kfreebsd as the default stable release, as used by
-    choose-mirror.
-
- -- Didier Raboud <odyx@debian.org>  Sun, 29 Mar 2015 17:43:38 +0200
 
 debian-installer (20150422) unstable; urgency=medium
 
