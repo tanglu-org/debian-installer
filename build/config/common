@@ -44,18 +44,18 @@ MKLIBS = mklibs-copy
 DPKG_UNPACK_OPTIONS = --force-overwrite
 
 # The codename of the Debian release that should be installed by default.
-DEBIAN_RELEASE = chromodoris
+DEBIAN_RELEASE = dasyatis
 
 # The version (number and codename) of the Debian release targeted by the
 # installation images. (Only the codename is used while the version number
 # has not yet been determined.)
-DEBIAN_VERSION = 3.0 (chromodoris)
-DEBIAN_VERSION ?= chromodoris
+DEBIAN_VERSION = 4.0 (dasyatis)
+DEBIAN_VERSION ?= dasyatis
 
 # Define here from what release (codename!) components (udebs) should be taken
 # to build debian-installer. By default this is set to 'unstable' for building
 # daily images. For official builds this is overruled in debian/rules.
-USE_UDEBS_FROM ?= chromodoris
+USE_UDEBS_FROM ?= dasyatis
 USE_UDEBS_FROM_EXTRA ?= staging
 
 # Archive components from which to fetch debian-installer modules.

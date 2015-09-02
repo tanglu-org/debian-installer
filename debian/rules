@@ -5,11 +5,11 @@ VERSION=$(shell LC_ALL=C dpkg-parsechangelog | grep ^Version: | cut -d ' ' -f 2)
 DATE=$(shell echo $(VERSION) | cut -d '.' -f 1)
 SUITE=$(shell LC_ALL=C dpkg-parsechangelog | grep ^Distribution: | cut -d ' ' -f 2)
 ifeq (${SUITE},UNRELEASED)
-USE_UDEBS_FROM=chromodoris
+USE_UDEBS_FROM=dasyatis
 TRANSSTATUS=
 BOOTMENU_BEEP=n
 else
-USE_UDEBS_FROM=chromodoris
+USE_UDEBS_FROM=dasyatis
 USE_PROPOSED_UPDATES=0
 TRANSSTATUS=translation-status
 BOOTMENU_BEEP=y
