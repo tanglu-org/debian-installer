@@ -1,4 +1,4 @@
-debian-installer (20150903tanglu1) UNRELEASED; urgency=medium
+debian-installer (20150904tanglu1) staging; urgency=medium
 
   * Merge with debian master, remaining changes:
     - change release name in rules to dasyatis
@@ -9,7 +9,7 @@ debian-installer (20150903tanglu1) UNRELEASED; urgency=medium
     - exchange Debian boot picture with Tanglu mod for x86
     - change kernel version to 4.2.0-trunk
 
- -- Philip Muškovac <yofel@kubuntu.org>  Thu, 03 Sep 2015 01:23:56 +0200
+ -- Philip Muškovac <yofel@kubuntu.org>  Thu, 04 Sep 2015 18:34:06 +0200
 
 debian-installer (20150828) unstable; urgency=medium
 
