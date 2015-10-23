@@ -1,3 +1,36 @@
+debian-installer (20151023tanglu1) staging; urgency=medium
+
+  * Merge with debian master, remaining changes:
+    - change release name in rules to dasyatis
+    - set default i386 kernel flavor to 686-pae
+    - allow using more than one series in gen-sources.list.udeb
+    - set Vcs urls to the gitlab repo
+    - fix maintainer to tanglu developers
+    - exchange Debian boot picture with Tanglu mod for x86
+
+ -- Philip Muškovac <yofel@kubuntu.org>  Fri, 23 Oct 2015 21:32:35 +0200
+
+debian-installer (20151023) unstable; urgency=medium
+
+  [ Samuel Thibault ]
+  * Restore actually-used non-gtk speech synthesis entries
+    - Otherwise netboot/gtk/mini.iso (which is gtk only) does not contain the
+      speech entry.
+    - Avoid including them on non-gtk netboot image, though.
+
+  [ Cyril Brulebois ]
+  * Bump linux kernel version from 4.1.0-2 to 4.2.0-1
+  * Update translation-status for the release.
+
+ -- Cyril Brulebois <kibi@debian.org>  Fri, 23 Oct 2015 12:54:34 +0200
+
+debian-installer (20150911) unstable; urgency=medium
+
+  * Bump linux kernel version from 4.1.0-1 to 4.1.0-2
+  * Update translation-status for the release.
+
+ -- Cyril Brulebois <kibi@debian.org>  Fri, 11 Sep 2015 00:58:26 +0200
+
 debian-installer (20150904tanglu1) staging; urgency=medium
 
   * Merge with debian master, remaining changes:

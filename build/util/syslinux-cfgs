@@ -34,6 +34,9 @@ create_standard_config() {
 		cp "$SRC"/{ad,rq,}gtk.cfg "$DST"/
 		cp "$SRC"/spkgtk.cfg "$DST"/
 	fi
+	if [ "$IS_GTK" = 1 ]; then
+		cp "$SRC"/spk.cfg "$DST"/
+	fi
 }
 
 case $TYPE in
@@ -43,12 +46,18 @@ case $TYPE in
 		rm -f "$DST"/*gtk.cfg
 		rm -f "$DST"/*spkgtk.cfg
 	fi
+	if [ "$IS_GTK" = 1 ]; then
+		rm -f "$DST"/*spk.cfg
+	fi
 	exit 0
 	;;
     prompt)
 	cp "$SRC"/prompt.cfg "$DST"/syslinux.cfg
 	cp "$SRC"/menu.cfg "$DST"/
 	cp "$SRC"/{,ad,rq}txt.cfg "$DST"/
+	if [ "$IS_GTK" = 1 ]; then
+		cp "$SRC"/spk.cfg "$DST"/
+	fi
 	;;
     standard)
 	create_standard_config
