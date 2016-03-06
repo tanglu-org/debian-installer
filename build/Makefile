@@ -56,7 +56,7 @@
 # Add to PATH so dpkg will always work, and so local programs will be found.
 PATH := util:$(PATH):/usr/sbin:/sbin
 EATMYDATA = $(shell which eatmydata 2>/dev/null)
-GZIP = $(shell which pigz gzip | head -1)
+gzip = $(shell which pigz >/dev/null 2>&1 && echo "pigz -n -T" || echo "gzip -n")
 
 # We don't want this to be run each time we re-enter.
 ifndef DEB_HOST_ARCH
@@ -112,6 +112,7 @@ include config/dir
 export KEYRING
 export KERNELVERSION
 export LOCALUDEBDIR
+export SOURCE_DATE_EPOCH
 
 ifneq ($(shell id -u),0)
   ROOTCMD ?= fakeroot
@@ -149,7 +150,7 @@ MFSROOT_LIMIT := 68m
 endif
 
 define mkfs.ufs1
-  sh -c 'makefs -t ffs -s $(MFSROOT_LIMIT) -f 3000 -o minfree=0,version=1 $$0 ${TREE}'
+  sh -c 'makefs -t ffs -T $(SOURCE_DATE_EPOCH) -s $(MFSROOT_LIMIT) -f 3000 -o minfree=0,version=1 $$0 ${TREE}'
 endef
 
 define e2fsck
@@ -443,9 +444,6 @@ endif
 endif
 
 ifdef KERNELNAME
-ifeq ($(DEB_HOST_ARCH_OS),hurd)
-	cp /lib/ld.so.1   $(TREE)/boot/ld.so.1
-endif
 	# Move the kernel image out of the way.
 	$(foreach name,$(KERNELNAME), \
 		mv -f $(TREE)/boot/$(name) $(TEMP)/$(name);)
@@ -729,18 +727,18 @@ endif
 	ext2) \
 		$(genext2fs) $(TEMP)/initrd; \
 		$(e2fsck) $(TEMP)/initrd || true; \
-		$(GZIP) -v9f $(TEMP)/initrd; \
+		$(gzip) -v9f $(TEMP)/initrd; \
 	;; \
 	initramfs) \
 		$(mkinitramfs) $(TEMP)/initrd; \
-		$(GZIP) -v9f $(TEMP)/initrd; \
+		$(gzip) -v9f $(TEMP)/initrd; \
 	;; \
 	jffs2) \
 		$(mkjffs2) $(TEMP_INITRD); \
 	;; \
 	ufs1) \
 		$(mkfs.ufs1) $(TEMP)/initrd; \
-		$(GZIP) -v9f $(TEMP)/initrd; \
+		$(gzip) -v9f $(TEMP)/initrd; \
 	;; \
 	*) \
 		echo "Unsupported filesystem type"; \
@@ -815,7 +813,7 @@ $(TEMP_MINIISO): $(TEMP_BOOT_SCREENS) arch_miniiso
 
 # various kinds of information, for use on debian-cd isos
 $(DEBIAN_CD_INFO): $(TEMP_BOOT_SCREENS) $(TEMP_CD_INFO_DIR)
-	(cd $(TEMP_CD_INFO_DIR); tar czf - .) > $@
+	gen-tarball $(TEMP_CD_INFO_DIR) $@
 	update-manifest $@ $(MANIFEST-DEBIAN_CD_INFO)
 
 # a directory full of files for netbooting
@@ -834,7 +832,7 @@ $(NETBOOT_TAR): $(TEMP_NETBOOT_DIR)
 	# Create an version info file.
 	echo 'Debian version:  $(DEBIAN_VERSION)' > $(TEMP_NETBOOT_DIR)/version.info
 	echo 'Installer build: $(BUILD_DATE)' >> $(TEMP_NETBOOT_DIR)/version.info
-	(cd $(TEMP_NETBOOT_DIR); tar czf - .) > $@
+	gen-tarball $(TEMP_NETBOOT_DIR) $@
 	update-manifest $@ $(MANIFEST-NETBOOT_TAR) $(UDEB_LISTS)
 
 $(TEMP_BOOT_SCREENS): arch_boot_screens
@@ -864,7 +862,7 @@ $(TEMP_EXTRA): $(STAMPS)extra-$(targetstring)-stamp
 		echo "Unsupported filesystem type"; \
 		exit 1 ;; \
 	esac
-	$(if $(GZIPPED),$(GZIP) -v9f $(TEMP_EXTRA))
+	$(if $(GZIPPED),$(gzip) -v9f $(TEMP_EXTRA))
 
 $(STAMPS)extra-$(targetstring)-stamp: $(STAMPS)get_udebs-$(targetstring)-stamp
 	@rm -f $@

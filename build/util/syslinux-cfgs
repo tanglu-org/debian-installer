@@ -19,7 +19,15 @@ DST="$2"
 if [ -z "$DST" ]; then
 	# Only list config files
 	cd "$SRC"
-	find . -type f | sed "s:\./::"
+	# spk.cfg is only meant for the netboot-gtk image which has the gtk
+	# initrd at the root instead of gtk/
+	if [ "$IS_GTK" = 1 ]
+	then
+		FILTER=
+	else
+		FILTER="! -name spk.cfg"
+	fi
+	find . -type f $FILTER | sed "s:\./::"
 	exit 0
 elif [ ! -d "$DST" ]; then
 	exit 1

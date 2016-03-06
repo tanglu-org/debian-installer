@@ -104,8 +104,8 @@ Build-Depends:
 #		For all our powerpc boot needs. Well, not really.
 	aboot (>= 0.9b-2) [alpha],
 #		A previous version didn't have netabootwrap.
-	silo [sparc],
-#		Using silo is problimatic since it needs to run as root,
+	silo [sparc sparc64],
+#		Using silo is problematic since it needs to run as root,
 #		so images that need it are not built by default, but we
 #		include it for completeness.
 	sparc-utils [sparc sparc64],
@@ -132,7 +132,10 @@ Build-Depends:
 	u-boot-imx [armhf],
 	u-boot-omap [armhf],
 	u-boot-sunxi [armhf],
+	u-boot-rockchip [armhf],
 #		U-boot binaries for armhf systems without u-boot in flash memory
+	u-boot (>= 2016.01+dfsg1-1) [armel],
+#		U-boot binaries for armel systems
 # 
 # Architecture specific build dependencies:
 	tofrodos [i386 amd64 kfreebsd-i386 kfreebsd-amd64],
@@ -142,8 +145,8 @@ Build-Depends:
 #		mcopy is used to put files onto FAT filesystems w/o
 #		mounting them.
 # 
-	module-init-tools [linux-any],
-#		depmod for 2.6 kernels on the arches that support 2.6.
+	kmod [linux-any],
+#		depmod.
 # 
 	bf-utf-source [!s390 !s390x],
 #		Contains the unicode font we use. Not a udeb since we
@@ -157,7 +160,7 @@ Build-Depends:
 #		architectures if SSL_CERTS has been set locally.
 	win32-loader (>= 0.7.2) [i386 amd64 kfreebsd-i386 kfreebsd-amd64 hurd-i386],
 #		Alternative boot method for win32 platforms.
-	makefs [kfreebsd-any],
+	makefs (>= 20100306-5+kbsd8u1~) [kfreebsd-any],
 #		Used to create an UFS1 filesystem from a directory tree.
 	grub-pc (>= 2.02~beta2~) [kfreebsd-i386 kfreebsd-amd64 hurd-i386],
 #		Used as the CD-ROM's bootloader

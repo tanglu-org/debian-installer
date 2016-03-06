@@ -1,4 +1,4 @@
-debian-installer (20151023tanglu1) staging; urgency=medium
+debian-installer (20160306tanglu1) staging; urgency=medium
 
   * Merge with debian master, remaining changes:
     - change release name in rules to dasyatis
@@ -8,7 +8,161 @@ debian-installer (20151023tanglu1) staging; urgency=medium
     - fix maintainer to tanglu developers
     - exchange Debian boot picture with Tanglu mod for x86
 
- -- Philip Muškovac <yofel@kubuntu.org>  Fri, 23 Oct 2015 21:32:35 +0200
+ -- Philip Muškovac <yofel@kubuntu.org>  Sun, 06 Mar 2016 15:54:01 +0100
+
+debian-installer (20160112) UNRELEASED; urgency=low
+
+  [ Martin Michlmayr ]
+  * Provide u-boot images for OpenRD.
+  * Remove mipsel/bcm947xx config file.
+  * Use gpgv1.4-udeb for orion5x network-console so the ramdisk fits
+    in flash on QNAP TS-x09 devices.
+  * Update QNAP TS-x09 kernel address to the new value used by
+    flash-kernel (see #809476).
+  * Bump Linux kernel version from 4.3.0-1 to 4.4.0-1
+  * Use new marvell kernel flavour for orion5x and kirkwood
+  * Include mtd-modules in kirkwood images.
+  * Include mtd-modules in armhf netboot images.
+  * Provide kernel and ramdisk for kirkwood netboot.
+
+  [ Samuel Thibault ]
+  * config/hurd.cfg: Set ROOTCMD to fakeroot-tcp.
+  * hurd: Use exec.static instead of ld.so to start exec. This avoids libc
+    version synchronization issues.
+
+  [ Colin Watson ]
+  * Use HTTPS for Vcs-* URLs, and link to cgit rather than gitweb.
+
+  [ Roger Shimizu ]
+  * ARM: orion5x: Fix typo in lspro-config-debian script
+  * ARM: orion5x: add device tree support for armel/orion5x
+  * ARM: add/update a few Buffalo Linkstation support on
+    armel/{orion5x,kirkwood}
+      - Linkstation LS-WTGL
+      - Linkstation LS-WVL/VL
+      - Linkstation LS-WXL/WSXL
+      - Linkstation Mini (LS-WSGL)
+  * ARM: update kernel/initrd address for various Buffalo Linkstation
+    to be consistent with flash-kernel
+  * ARM: orion5x: share (symbolic link) the initrd for all Linkstation series
+  * ARM: orion5x: unify model name of Linkstation with kirkwood based ones
+  * ARM: orion5x: rename lspro-config-debian script to
+    linkstation-config-debian
+  * ARM: kirkwood: apply linkstation-config-debian script to all Linkstation
+    devices
+
+  [ Vagrant Cascadian ]
+  * Add support for Firefly-RK3288.
+  * Add u-boot-rockchip to the "built-using" package list.
+  * Add support for BeagleBoard-X15.
+
+  [ Karsten Merker ]
+  * ARM: sunxi: Add support for the Olimex A20-SOM-EVB.
+
+ -- Martin Michlmayr <tbm@cyrius.com>  Tue, 12 Jan 2016 20:28:57 -0800
+
+debian-installer (20160106) unstable; urgency=medium
+
+  [ Samuel Thibault ]
+  * Fix missing speech entry in netboot mini.iso:
+    - build/util/syslinux-cfgs: Make the list-only behavior include spk.cfg file
+    when IS_GTK is 1.
+    - build/config/x86.cfg: Set IS_GTK when calling syslinux-cfgs to get the
+    list.
+  * config/hurd.cfg: Save a few megabytes on initrd to manage to boot with only
+    128MiB, only to tell user-who-didn't-read-README to boot with more memory.
+
+  [ Cyril Brulebois ]
+  * Switch d-i.debian.org URIs from http to https.
+
+  [ Martin Michlmayr ]
+  * Provide u-boot images for plug computers.
+
+  [ Steven Chamberlain ]
+  * On kfreebsd, use the new makefs -T parameter to clamp mfsroot
+    timestamps to a reproducible maximum value;  raise Build-Depends: on
+    makefs to version (>= 20100306-5+kbsd8u1~).
+
+ -- Cyril Brulebois <kibi@debian.org>  Wed, 06 Jan 2016 06:00:19 +0100
+
+debian-installer (20160101) unstable; urgency=medium
+
+  [ Karsten Merker ]
+  * Provide u-boot and SD-card images for the LinkSprite pcDuino.
+
+  [ Cyril Brulebois ]
+  * Adjust p-u support to handle file:// instead of (f|ht)tp:// only,
+    thanks to Łukasz Stelmach for both the report and the patch
+    (Closes: #803711).
+
+  [ Samuel Thibault ]
+  * Bump hurd kernel version.
+  * Prevent spurious speech synthesis boot entry.
+
+  [ Vagrant Cascadian ]
+  * bootscr.mainline_common: Prefer newer u-boot distro_bootpart variable.
+
+  [ Cyril Brulebois ]
+  * Cherry-pick the following changes by Steven Chamberlain from the
+    jessie-kfreebsd branch.
+  * build/Makefile: Rename GZIP into gzip, and pass an extra -T to pigz
+    (it needs both -n and -T to behave as gzip's -n).
+  * build/config/x86.cfg: Also pass -n to gzip.
+  * Bump linux kernel version from 4.2.0-1 to 4.3.0-1
+  * Replace the module-init-tools build-dep with a kmod one since the
+    transitional package got dropped in kmod/22-1.
+  * Apply patch from gregor herrmann to fix new warnings with perl 5.22
+    (Closes: #808875). Thanks!
+  * Update copyright years on the F10 help screen.
+  * Update translation-status for the release.
+
+  [ Steven Chamberlain ]
+  * Improve reproducibility of debian-installer netboot images
+    (Closes: #805321):
+  * Add a new utility build/util/gen-tarball to make reproducible
+    tarballs, and use it for:
+    - netboot.tar.gz
+    - debian-cd_info.tar.gz
+    - the overall debian-installer-images tar.gz file.
+  * Inhibit gzip timestamp in initrd.gz
+  * Ensure SOURCE_DATE_EPOCH is exported throughout the build system,
+    define it if unset, or fall back to 'now' if build/Makefile is
+    directly invoked.
+
+  [ Steve McIntyre ]
+  * Add the part_gpt module into the core grub image to make it easier
+    for users doing slightly different things with our images; include
+    support for GPT partition tables as well as msdos (Closes: #789600).
+
+  [ Ben Hutchings ]
+  * Include leds-modules on armhf if available
+  * Update i386 config to use 686 kernel flavour instead of 586
+
+  [ Martin Michlmayr ]
+  * Update docs to reflect that Package-Type and Installer-Menu-Item
+    are official fields nowadays (Closes: #807716).
+  * Remove minix-modules from the orion5x network-console image since
+    it was only required by the D-Link DNS-323, a device that's no longer
+    supported.
+  * Exclude usb-serial-modules from the armel network-console image
+    since it's not useful there (Closes: #809301).
+  * Exclude usb-modules explicitly on armel/orion5x network-console
+    to work around a bug in util/pkg-list.
+  * Stop including sata and ext2/ext3 modules on the armel/orion5x
+    network-console image due to size limitations on QNAP TS-x09.
+  * Drop the file extension from the initrd for QNAP devices.
+  * Re-introduce installer images for QNAP TS-x09.
+  * Recognize /dev/disk1_1 and /dev/ls_disk1_1 as boot devices
+    on Linkstation.  Thanks Roger Shimizu (Closes: 722735).
+
+  [ John Paul Adrian Glaubitz ]
+  * Set KERNELVERSION for sparc64 to $(LINUX_KERNEL_ABI)-sparc64.
+  * Set KEYRING to debian-ports on sparc64.
+  * Add silo to Build-Depends on sparc64.
+  * Fix typo (problimatic -> problematic) in silo comment.
+  * Clone boot configuration files from sparc for sparc64.
+
+ -- Cyril Brulebois <kibi@debian.org>  Fri, 01 Jan 2016 18:46:41 +0100
 
 debian-installer (20151023) unstable; urgency=medium
 

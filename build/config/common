@@ -11,7 +11,7 @@
 
 # Default kernel ABI version to use. Append a kernel flavour to
 # produce KERNELVERSION.
-LINUX_KERNEL_ABI ?= 4.2.0-1
+LINUX_KERNEL_ABI ?= 4.4.0-1
 
 # Always "di" these days
 KERNEL_FLAVOUR ?= di
@@ -63,6 +63,9 @@ UDEB_COMPONENTS ?= main/debian-installer
 
 # The date the installer is built.
 BUILD_DATE ?= $(shell date -u '+%Y%m%d-%H:%M')
+# The date the installer source was last changed;  we prefer that the
+# caller defines a meaningful value, but below is a safe fallback.
+SOURCE_DATE_EPOCH ?= $(shell date '+%s')
 
 # Produce a beep at boot menu
 BOOTMENU_BEEP ?= n
