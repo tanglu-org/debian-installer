@@ -1,6 +1,6 @@
 debian-installer (20160528tanglu1) staging; urgency=medium
 
-  * Bump kernel version to 4.6.0-1 
+  * Bump kernel version to 4.6.0-trunk
 
  -- Philip Muškovac <yofel@kubuntu.org>  Sat, 28 May 2016 20:33:55 +0200
 
