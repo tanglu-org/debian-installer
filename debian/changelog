@@ -1,11 +1,5 @@
 debian-installer (20160528tanglu1) staging; urgency=medium
 
-  * Bump kernel version to 4.6.0-trunk
-
- -- Philip Muškovac <yofel@kubuntu.org>  Sat, 28 May 2016 20:33:55 +0200
-
-debian-installer (20160306tanglu1) staging; urgency=medium
-
   * Merge with debian master, remaining changes:
     - change release name in rules to dasyatis
     - set default i386 kernel flavor to 686-pae
@@ -13,10 +7,34 @@ debian-installer (20160306tanglu1) staging; urgency=medium
     - set Vcs urls to the gitlab repo
     - fix maintainer to tanglu developers
     - exchange Debian boot picture with Tanglu mod for x86
+  * Bump kernel version to 4.6.0-trunk
 
- -- Philip Muškovac <yofel@kubuntu.org>  Sun, 06 Mar 2016 15:54:01 +0100
+ -- Philip Muškovac <yofel@kubuntu.org>  Sat, 28 May 2016 20:33:55 +0200
 
-debian-installer (20160112) UNRELEASED; urgency=low
+debian-installer (20160517) UNRELEASED; urgency=medium
+
+  [ Cyril Brulebois ]
+  * Make version build-deps use -1~ version suffixes instead of -1 to
+    make lintian happy (build-depends-on-1-revision tag)
+
+  [ Aurelien Jarno ]
+  * Add mipsel octeon images.
+  * Drop mipsel cobalt support.
+  * Add mips64el support.
+
+  [ Samuel Thibault ]
+  * Produce two beeps when booted with grub instead of one, so the user knows
+    he has to use the grub way to edit entries.
+
+  [ Roger Shimizu ]
+  * ARM: orion5x: Add a few Linkstation devices to netboot target.
+    Those devices are still in network-console target.
+  * ARM: orion5x: Change initrd to XZ compression for all orion5x-based
+    Linkstation devices.
+
+ -- Cyril Brulebois <kibi@debian.org>  Mon, 16 May 2016 22:31:50 +0200
+
+debian-installer (20160516) unstable; urgency=low
 
   [ Martin Michlmayr ]
   * Provide u-boot images for OpenRD.
@@ -30,6 +48,10 @@ debian-installer (20160112) UNRELEASED; urgency=low
   * Include mtd-modules in kirkwood images.
   * Include mtd-modules in armhf netboot images.
   * Provide kernel and ramdisk for kirkwood netboot.
+  * Fix syntax error in doc internals build script.  Thanks to
+    Josh Gadeken (Closes: #817073)
+  * Add kernel/initrd manifest information for armhf.
+  * Generate image for Seagate Personal Cloud and Seagate NAS.
 
   [ Samuel Thibault ]
   * config/hurd.cfg: Set ROOTCMD to fakeroot-tcp.
@@ -43,11 +65,16 @@ debian-installer (20160112) UNRELEASED; urgency=low
   * ARM: orion5x: Fix typo in lspro-config-debian script
   * ARM: orion5x: add device tree support for armel/orion5x
   * ARM: add/update a few Buffalo Linkstation support on
-    armel/{orion5x,kirkwood}
+    armel/orion5x
       - Linkstation LS-WTGL
-      - Linkstation LS-WVL/VL
-      - Linkstation LS-WXL/WSXL
       - Linkstation Mini (LS-WSGL)
+      - Linkstation Pro/Live (LS-GL)
+    armel/kirkwood
+      - Linkstation LS-QVL
+      - Linkstation LS-VL
+      - Linkstation LS-WSXL
+      - Linkstation LS-WVL
+      - Linkstation LS-WXL
   * ARM: update kernel/initrd address for various Buffalo Linkstation
     to be consistent with flash-kernel
   * ARM: orion5x: share (symbolic link) the initrd for all Linkstation series
@@ -65,7 +92,39 @@ debian-installer (20160112) UNRELEASED; urgency=low
   [ Karsten Merker ]
   * ARM: sunxi: Add support for the Olimex A20-SOM-EVB.
 
- -- Martin Michlmayr <tbm@cyrius.com>  Tue, 12 Jan 2016 20:28:57 -0800
+  [ Adam Conrad ]
+  * Drop references to libnss-files-udeb and libnss-dns-udeb, they're now
+    provided by libc-udeb, as of glibc 2.22-5.
+
+  [ Aurelien Jarno ]
+  * Stop excluding libc{0.1,0.3,6,6.1} as we now use mklibs-copy for the
+    reduction pass. This avoids dropping libnss libraries and also avoids a
+    useless download of this udeb during the installation.
+  * Drop build-dependency on glibc-pic.
+  * armhf: drop the compat ld.so symlink, all binaries in testing now use the
+    correct one.
+
+  [ Cyril Brulebois ]
+  * Bump Linux kernel version from 4.4.0-1 to 4.5.0-2
+  * efi-image: Make the mkfs.msdos call verbose; this might help track
+    regressions or strange behaviours with new dosfstools upstream
+    releases (See: #823881).
+  * gen-hd-image: Make the mkfs.msdos call verbose.
+  * x86.cfg: Make the mkfs.msdos call verbose.
+  * build/Makefile: Export MTOOLS_SKIP_CHECK=1 before running mmd and
+    mcopy commands to work around an apparent regression in dosfstools
+    4.0-1 (See: #823881). Confirmed by Steve to produce an image that
+    boots OK.
+  * Update translation-status for the release.
+
+  [ Steven Chamberlain ]
+  * Handle error creating initramfs (Closes: #821249)
+  * Increase kfreebsd-amd64 MFSROOT to 72 MiB to allow for larger udebs
+
+  [ Steve McIntyre ]
+  * Add sata-modules for arm64 - some machines do have SATA CD
+
+ -- Cyril Brulebois <kibi@debian.org>  Mon, 16 May 2016 15:00:21 +0200
 
 debian-installer (20160106) unstable; urgency=medium
 
